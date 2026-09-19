@@ -17,10 +17,16 @@ Por dentro demuestra una separación de responsabilidades limpia, una capa de l�
 testeable, reporte asíncrono de progreso, cancelación y una UI de escritorio híbrida que reutiliza
 habilidades web en lugar de un motor de navegador empaquetado.
 
-**Descarga:** bajá el último `MediaConverter.exe` desde la página de
-[Releases](https://github.com/Starlord71/Streamlite/releases/latest). Es un único archivo
-autocontenido: sin runtime de .NET, sin instalador y sin motor de navegador empaquetado. En el
-primer arranque pregunta el idioma y descarga ffmpeg y yt-dlp, así que necesita internet una vez.
+**Descarga:** bajá `MediaConverter-v0.1.0-win-x64.zip` desde la página de
+[Releases](https://github.com/Starlord71/media-converter/releases/latest), descomprimilo y ejecutá
+`MediaConverter.exe`. Es un único archivo autocontenido: sin runtime de .NET, sin instalador y sin
+motor de navegador empaquetado. Es posible que Windows SmartScreen avise sobre un editor
+desconocido porque el binario no está firmado; elegí "Más información" y luego "Ejecutar de todas
+formas". En el primer arranque pregunta el idioma y descarga ffmpeg y yt-dlp, así que necesita
+internet una vez.
+
+SHA256 (`MediaConverter-v0.1.0-win-x64.zip`):
+`5516F5AE13ACD521FA421257D322D736CDA9B724FC6D0F0A0694515ADE1CA5ED`
 
 ## Capturas
 
@@ -220,8 +226,8 @@ envoltorio.
 
 El MVP, el pulido de UX y la documentación del proyecto están completos, y la **v0.1.0 está
 publicada** como un único ejecutable autocontenido para Windows. Bajalo desde la página de
-[Releases](https://github.com/Starlord71/Streamlite/releases) y ejecutalo: no hay runtime de .NET
-que instalar ni asistente de instalación.
+[Releases](https://github.com/Starlord71/media-converter/releases/latest) y ejecutalo: no hay
+runtime de .NET que instalar ni asistente de instalación.
 
 - Las tres pestañas funcionan de punta a punta: conversión de audio, descarga desde URL y extracción
   de video a audio.
