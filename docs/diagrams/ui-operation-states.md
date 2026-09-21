@@ -1,5 +1,7 @@
 # UI operation states
 
+**[English](ui-operation-states.md) | [Español](ui-operation-states.es.md)**
+
 Lifecycle shared by the three tabs. `OperationCoordinator` reserves the operation slot before the
 first `await`, so the Running state ignores a second click and no two operations ever run at once.
 

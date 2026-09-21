@@ -1,5 +1,7 @@
 # Video download
 
+**[English](video-download.md) | [Español](video-download.es.md)**
+
 Sequence for the Video tab, from entering a URL to a finished download. yt-dlp works inside an
 isolated directory so a cancelled run never leaks partial files into the user folder.
 

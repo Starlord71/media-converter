@@ -115,12 +115,12 @@ through `IProgress<ProgressInfo>` and accept a `CancellationToken` for cancellat
 
 ### Detailed diagrams
 
-The full set lives in [`docs/diagrams`](docs/diagrams), one Markdown file per diagram:
+The full set lives in [`docs/diagrams`](docs/diagrams), in English and Spanish:
 
-- [Architecture](docs/diagrams/architecture.md): layers, components and the one-way dependency.
-- [Core components](docs/diagrams/core-components.md): interfaces, models, services and the parsers.
-- [Audio conversion](docs/diagrams/audio-conversion.md) and
-  [video to audio](docs/diagrams/video-to-audio.md): conversion sequences, including cancellation.
+- [Architecture](docs/diagrams/architecture.md): layers, components, the one-way dependency and the
+  Core class diagram (interfaces, models, services and the parsers).
+- [Audio conversion](docs/diagrams/audio-conversion.md): conversion sequences, including
+  cancellation and the video-to-audio extraction that reuses the same pipeline.
 - [Video download](docs/diagrams/video-download.md): download sequence with the isolated work
   directory.
 - [Binaries provisioning](docs/diagrams/binaries-provisioning.md): first-run download of ffmpeg and
