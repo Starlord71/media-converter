@@ -18,7 +18,7 @@ asynchronous progress reporting, cancellation, and a hybrid desktop UI that reus
 instead of a bundled browser engine.
 
 **Download:** grab `MediaConverter-v0.1.0-win-x64.zip` from the
-[Releases](https://github.com/Starlord71/media-converter/releases/latest) page, unzip it and run
+[Releases](https://github.com/herrera-21/media-converter/releases/latest) page, unzip it and run
 `MediaConverter.exe`. It is a single self-contained file: no .NET runtime, no installer and no
 bundled browser engine. Windows SmartScreen may warn about an unknown publisher because the binary
 is not code-signed, so choose "More info" and then "Run anyway". On the first run it asks for the
@@ -115,12 +115,12 @@ through `IProgress<ProgressInfo>` and accept a `CancellationToken` for cancellat
 
 ### Detailed diagrams
 
-The full set lives in [`docs/diagrams`](docs/diagrams), one Markdown file per diagram:
+The full set lives in [`docs/diagrams`](docs/diagrams), in English and Spanish:
 
-- [Architecture](docs/diagrams/architecture.md): layers, components and the one-way dependency.
-- [Core components](docs/diagrams/core-components.md): interfaces, models, services and the parsers.
-- [Audio conversion](docs/diagrams/audio-conversion.md) and
-  [video to audio](docs/diagrams/video-to-audio.md): conversion sequences, including cancellation.
+- [Architecture](docs/diagrams/architecture.md): layers, components, the one-way dependency and the
+  Core class diagram (interfaces, models, services and the parsers).
+- [Audio conversion](docs/diagrams/audio-conversion.md): conversion sequences, including
+  cancellation and the video-to-audio extraction that reuses the same pipeline.
 - [Video download](docs/diagrams/video-download.md): download sequence with the isolated work
   directory.
 - [Binaries provisioning](docs/diagrams/binaries-provisioning.md): first-run download of ffmpeg and
@@ -218,7 +218,7 @@ progress; no wrapper NuGet packages are used.
 
 The MVP, the UX polish and the project documentation are complete, and **v0.1.0 is released** as a
 single self-contained Windows executable. Download it from the
-[Releases](https://github.com/Starlord71/media-converter/releases/latest) page and run it: there is
+[Releases](https://github.com/herrera-21/media-converter/releases/latest) page and run it: there is
 no .NET runtime to install and no setup wizard.
 
 - The three tabs work end to end: audio conversion, URL download and video-to-audio extraction.

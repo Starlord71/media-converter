@@ -18,7 +18,7 @@ testeable, reporte asíncrono de progreso, cancelación y una UI de escritorio h
 habilidades web en lugar de un motor de navegador empaquetado.
 
 **Descarga:** bajá `MediaConverter-v0.1.0-win-x64.zip` desde la página de
-[Releases](https://github.com/Starlord71/media-converter/releases/latest), descomprimilo y ejecutá
+[Releases](https://github.com/herrera-21/media-converter/releases/latest), descomprimilo y ejecutá
 `MediaConverter.exe`. Es un único archivo autocontenido: sin runtime de .NET, sin instalador y sin
 motor de navegador empaquetado. Es posible que Windows SmartScreen avise sobre un editor
 desconocido porque el binario no está firmado; elegí "Más información" y luego "Ejecutar de todas
@@ -118,20 +118,18 @@ cancelación.
 
 ### Diagramas detallados
 
-El conjunto completo vive en [`docs/diagrams`](docs/diagrams), un archivo Markdown por diagrama (en
-inglés):
+El conjunto completo vive en [`docs/diagrams`](docs/diagrams), en inglés y español:
 
-- [Architecture](docs/diagrams/architecture.md): capas, componentes y la dependencia de una sola vía.
-- [Core components](docs/diagrams/core-components.md): interfaces, modelos, servicios y los parsers.
-- [Audio conversion](docs/diagrams/audio-conversion.md) y
-  [video to audio](docs/diagrams/video-to-audio.md): secuencias de conversión, incluida la
-  cancelación.
-- [Video download](docs/diagrams/video-download.md): secuencia de descarga con el directorio de
-  trabajo aislado.
-- [Binaries provisioning](docs/diagrams/binaries-provisioning.md): descarga en el primer arranque de
-  ffmpeg y yt-dlp.
-- [UI operation states](docs/diagrams/ui-operation-states.md): el ciclo de vida de las pestañas y la
-  protección de reentrada.
+- [Arquitectura](docs/diagrams/architecture.es.md): capas, componentes, la dependencia de una sola
+  vía y el diagrama de clases de Core (interfaces, modelos, servicios y los parsers).
+- [Conversión de audio](docs/diagrams/audio-conversion.es.md): secuencias de conversión, incluida la
+  cancelación y la extracción de video a audio que reutiliza el mismo pipeline.
+- [Descarga de video](docs/diagrams/video-download.es.md): secuencia de descarga con el directorio
+  de trabajo aislado.
+- [Aprovisionamiento de binarios](docs/diagrams/binaries-provisioning.es.md): descarga en el primer
+  arranque de ffmpeg y yt-dlp.
+- [Estados de operación de la UI](docs/diagrams/ui-operation-states.es.md): el ciclo de vida de las
+  pestañas y la protección de reentrada.
 
 ## Decisiones técnicas
 
@@ -226,7 +224,7 @@ envoltorio.
 
 El MVP, el pulido de UX y la documentación del proyecto están completos, y la **v0.1.0 está
 publicada** como un único ejecutable autocontenido para Windows. Bajalo desde la página de
-[Releases](https://github.com/Starlord71/media-converter/releases/latest) y ejecutalo: no hay
+[Releases](https://github.com/herrera-21/media-converter/releases/latest) y ejecutalo: no hay
 runtime de .NET que instalar ni asistente de instalación.
 
 - Las tres pestañas funcionan de punta a punta: conversión de audio, descarga desde URL y extracción

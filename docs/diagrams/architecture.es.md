@@ -1,39 +1,39 @@
-# Architecture
+# Arquitectura
 
 **[English](architecture.md) | [Español](architecture.es.md)**
 
-Layered view of the solution. The dependency direction is strictly one way: the App depends on
-Core, and Core depends on nothing (no WPF, no Blazor, no UI types).
+Vista por capas de la solución. La dirección de la dependencia es estrictamente en un solo sentido:
+la App depende de Core, y Core no depende de nada (sin WPF, sin Blazor, sin tipos de UI).
 
 ```mermaid
 flowchart TB
-    subgraph App["MediaConverter.App - net9.0-windows (WPF host)"]
+    subgraph App["MediaConverter.App - net9.0-windows (host WPF)"]
         direction TB
         Window["MainWindow.xaml<br/>BlazorWebView, HostPage wwwroot/index.html"]
-        subgraph Components["Razor components"]
-            Main["Main.razor<br/>language bar, tab bar, setup screens"]
+        subgraph Components["Componentes Razor"]
+            Main["Main.razor<br/>barra de idioma, barra de pestañas, pantallas de configuración"]
             AudioTab["AudioConverter.razor"]
             VideoTab["VideoDownloader.razor"]
             VideoToAudioTab["VideoToAudio.razor"]
         end
-        subgraph AppServices["App services (dependency injection)"]
-            Language["LanguageService<br/>applies CultureInfo, persists settings.json"]
-            Dialogs["FileDialogService (scoped)<br/>wraps IJSRuntime and the WPF dialogs"]
-            Coordinator["OperationCoordinator<br/>one operation at a time, busy flag"]
+        subgraph AppServices["Servicios de la App (inyección de dependencias)"]
+            Language["LanguageService<br/>aplica CultureInfo, persiste settings.json"]
+            Dialogs["FileDialogService (scoped)<br/>envuelve IJSRuntime y los diálogos de WPF"]
+            Coordinator["OperationCoordinator<br/>una operación a la vez, flag de ocupado"]
             Validators["UrlSupport, AudioFileSupport,<br/>VideoFileSupport"]
-            Localizer["LocalizerExtensions<br/>maps ErrorCode and ProgressStage to text"]
+            Localizer["LocalizerExtensions<br/>mapea ErrorCode y ProgressStage a texto"]
         end
-        Resources["Resources.resx (English) + Resources.es.resx (Spanish)"]
+        Resources["Resources.resx (inglés) + Resources.es.resx (español)"]
         Assets["wwwroot: index.html, css/app.css, js/fileDialog.js"]
     end
 
-    subgraph Core["MediaConverter.Core - net9.0 (class library, no UI)"]
+    subgraph Core["MediaConverter.Core - net9.0 (biblioteca de clases, sin UI)"]
         direction TB
         Interfaces["Interfaces<br/>IAudioConverterService, IVideoDownloaderService,<br/>IBinariesProvisioningService"]
-        Services["Services<br/>AudioConverterService, VideoDownloaderService,<br/>BinariesProvisioningService"]
-        Parsers["Parsers and classifiers<br/>FfmpegProgressParser, YtDlpProgressParser,<br/>YtDlpArgumentBuilder, YtDlpErrorClassifier,<br/>DownloadArtifactLocator"]
-        BinarySub["Binaries subsystem<br/>BinaryCatalog, BinaryDownloader, BinaryPaths,<br/>BinarySources, GitHubReleaseParser,<br/>ProvisioningExceptionMapper, VersionComparer"]
-        Models["Models<br/>OperationResult, ProgressInfo, ErrorCode,<br/>AudioFormat, DownloadFormat, ProgressStage"]
+        Services["Servicios<br/>AudioConverterService, VideoDownloaderService,<br/>BinariesProvisioningService"]
+        Parsers["Parsers y clasificadores<br/>FfmpegProgressParser, YtDlpProgressParser,<br/>YtDlpArgumentBuilder, YtDlpErrorClassifier,<br/>DownloadArtifactLocator"]
+        BinarySub["Subsistema de binarios<br/>BinaryCatalog, BinaryDownloader, BinaryPaths,<br/>BinarySources, GitHubReleaseParser,<br/>ProvisioningExceptionMapper, VersionComparer"]
+        Models["Modelos<br/>OperationResult, ProgressInfo, ErrorCode,<br/>AudioFormat, DownloadFormat, ProgressStage"]
     end
 
     Window --> Components
@@ -45,18 +45,18 @@ flowchart TB
     VideoToAudioTab --> AppServices
     Localizer --> Resources
     Components -.-> Assets
-    Dialogs <-->|"JavaScript interop"| Assets
+    Dialogs <-->|"interop de JavaScript"| Assets
 
-    App -->|"interfaces, async methods,<br/>IProgress and CancellationToken"| Core
+    App -->|"interfaces, métodos async,<br/>IProgress y CancellationToken"| Core
     Services --> Parsers
     Services --> BinarySub
     Interfaces --> Models
     Services --> Models
 
-    subgraph External["External tools and files (application data folder)"]
+    subgraph External["Herramientas externas y archivos (carpeta de datos de la aplicación)"]
         FFmpeg["ffmpeg.exe"]
         YtDlp["yt-dlp.exe"]
-        Settings["settings.json (language preference)"]
+        Settings["settings.json (preferencia de idioma)"]
     end
     Services --> FFmpeg
     Services --> YtDlp
@@ -65,15 +65,15 @@ flowchart TB
     Language --> Settings
 ```
 
-The golden rule: Core never knows a UI exists. It exposes interfaces, async methods, progress through
-`IProgress<ProgressInfo>` and cancellation through `CancellationToken`, and it reports failures as
-machine-readable `ErrorCode` values. The App translates those codes into the active language, so Core
-stays free of user-facing strings.
+La regla de oro: Core nunca sabe que existe una UI. Expone interfaces, métodos async, progreso a
+través de `IProgress<ProgressInfo>` y cancelación a través de `CancellationToken`, y reporta fallas
+como valores `ErrorCode` legibles por máquina. La App traduce esos códigos al idioma activo, así
+Core se mantiene libre de textos orientados al usuario.
 
-## Core components
+## Componentes de Core
 
-Class view of MediaConverter.Core. Core references no WPF or Blazor types, so it can be tested in
-isolation and reused from any host.
+Vista de clases de MediaConverter.Core. Core no referencia tipos de WPF ni de Blazor, por lo que
+puede probarse de forma aislada y reutilizarse desde cualquier host.
 
 ```mermaid
 classDiagram
@@ -162,13 +162,14 @@ classDiagram
     ProgressInfo ..> ProgressStage
 ```
 
-### Helper types
+### Tipos auxiliares
 
-- Audio pipeline: `FfmpegProgressParser` parses ffmpeg `-progress pipe:1` output into a percentage.
-- Download pipeline: `YtDlpArgumentBuilder` builds the yt-dlp arguments, `YtDlpProgressParser`
-  parses its progress lines, `YtDlpErrorClassifier` maps stderr to an `ErrorCode`, and
-  `DownloadArtifactLocator` finds the single file yt-dlp produced.
-- Binaries subsystem: `BinaryCatalog` and `BinaryDefinition` describe what to download,
-  `BinaryDownloader` performs the HTTP work, `BinarySources` and `GitHubReleaseParser` resolve
-  versions, `BinaryPaths` resolves where the binaries live, `ProvisioningExceptionMapper` maps
-  exceptions to `ErrorCode`, and `VersionComparer` decides when an update is needed.
+- Pipeline de audio: `FfmpegProgressParser` interpreta la salida de ffmpeg `-progress pipe:1` como
+  un porcentaje.
+- Pipeline de descarga: `YtDlpArgumentBuilder` construye los argumentos de yt-dlp,
+  `YtDlpProgressParser` interpreta sus líneas de progreso, `YtDlpErrorClassifier` mapea el stderr a
+  un `ErrorCode`, y `DownloadArtifactLocator` encuentra el único archivo que produjo yt-dlp.
+- Subsistema de binarios: `BinaryCatalog` y `BinaryDefinition` describen qué descargar,
+  `BinaryDownloader` realiza el trabajo HTTP, `BinarySources` y `GitHubReleaseParser` resuelven las
+  versiones, `BinaryPaths` resuelve dónde viven los binarios, `ProvisioningExceptionMapper` mapea
+  excepciones a `ErrorCode`, y `VersionComparer` decide cuándo hace falta una actualización.
