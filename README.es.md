@@ -18,7 +18,7 @@ testeable, reporte asíncrono de progreso, cancelación y una UI de escritorio h
 habilidades web en lugar de un motor de navegador empaquetado.
 
 **Descarga:** bajá `MediaConverter-v0.1.0-win-x64.zip` desde la página de
-[Releases](https://github.com/Starlord71/media-converter/releases/latest), descomprimilo y ejecutá
+[Releases](https://github.com/herrera-21/media-converter/releases/latest), descomprimilo y ejecutá
 `MediaConverter.exe`. Es un único archivo autocontenido: sin runtime de .NET, sin instalador y sin
 motor de navegador empaquetado. Es posible que Windows SmartScreen avise sobre un editor
 desconocido porque el binario no está firmado; elegí "Más información" y luego "Ejecutar de todas
@@ -226,7 +226,7 @@ envoltorio.
 
 El MVP, el pulido de UX y la documentación del proyecto están completos, y la **v0.1.0 está
 publicada** como un único ejecutable autocontenido para Windows. Bajalo desde la página de
-[Releases](https://github.com/Starlord71/media-converter/releases/latest) y ejecutalo: no hay
+[Releases](https://github.com/herrera-21/media-converter/releases/latest) y ejecutalo: no hay
 runtime de .NET que instalar ni asistente de instalación.
 
 - Las tres pestañas funcionan de punta a punta: conversión de audio, descarga desde URL y extracción
